@@ -12,36 +12,25 @@ connect.database.tm_data <- function(db.connection.string=default.db.connection.
 }
 
 # processing all routines to output timeseries data
-load.timeseries.data <- function(study_id) {
+get.subject_ids <- function(study_id, study_attribute) {
 	# reading data from database
 	connect.database.tm_data();
-	src.data <- get.data(study_id);
-	data <- format(src.data, digits=20)
+	data <- get.data(study_id, study_attribute);
 
 	# creating data structures
-	dlong <- data.frame(values=data[,1])
-	values <- data.frame(values=data[,2])
-	dates <-  data.frame(dates=data[,3])
+	subject_ids <- data.frame(values=data[,2])
 	
-	d1 <- as.vector(dates$dates)
-	pdates <- as.POSIXct(d1)
-
-	nvalues <- as.vector(as.numeric(values$values))
-	
-	require(xts)
-	# getting nvalues as extensible time series
-	ts <- xts(nvalues, order.by=pdates)
-	# output plot of timeseries
-	plot(ts)
+	# return subject_ids
+	subjects_ids
 }
 
 # getting data from database
-get.data <- function(study_id) {
+get.data <- function(study_id, study_attribute) {
 	query <- paste(
-		'SELECT v.sample_cd_long, v.data_value, v.sample_cd_date FROM STUDIES_CLINICAL_VALUES_MAT v ',
-		'INNER JOIN STUDIES_CLINICAL_ATTRIBUTES a ON a.CONCEPT_CD = v.CONCEPT_CD ',
+		'SELECT v.STUDY_ID, v.SUBJECT_ID, v.DATA_TYPE, v.DATA_VALUE, a.CLINICAL_ATTRIBUTE FROM TM_DATA.STUDIES_CLINICAL_VALUES_MAT v ',
+		'INNER JOIN TM_DATA.STUDIES_CLINICAL_ATTRIBUTES a ON a.CONCEPT_CD = v.CONCEPT_CD ',
 		'WHERE ',
-			'a.CLINICAL_ATTRIBUTE = \'\\path\\to\\study\\attribute\\\' ',
+			'a.CLINICAL_ATTRIBUTE = \'',study_attribute,'\' ',
 			'AND v.study_id =\'', study_id, '\'', 
 		sep=''
 	)
@@ -49,10 +38,4 @@ get.data <- function(study_id) {
 	data <- as.data.frame(dbGetQuery(db.connection,query))
     #return data    
 	data
-}
-
-# creating timseries data from file
-create.timeseries.data <- function(filename) {
-	time.series.data <- scan(filename);
-	ts(time.series.data);
 }

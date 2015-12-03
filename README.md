@@ -24,4 +24,4 @@ and indexes for following clinical values:
 Coming soon...
 
 # Samples
-R-script **tm_data.R** and MATLAB script **tm_data.m** demonstrates how to get and how to use data from our views (on Oracle database) as time series.
+R-script **tm_data.R** and MATLAB script **tm_data.m** demonstrates how to get data from our views (on Oracle database).

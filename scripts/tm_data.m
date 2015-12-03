@@ -10,7 +10,7 @@ sid='<SID>'
 port=1521
 
 % SQL query to get data from database
-sqlQuery = strcat('SELECT data_value, sample_cd FROM tm_data.studies_clinical_values WHERE study_id =''', studyId, ''' AND sample_cd IS NOT NULL');
+sqlQuery = strcat('SELECT subject_id, data_value  FROM tm_data.studies_clinical_values WHERE study_id =''', studyId, ''' AND subject_id IS NOT NULL');
 
 % Connecting to database
 conn = database(sid,username,password,'Vendor','Oracle',...
@@ -26,14 +26,7 @@ close(curs);
 
 % Converting SQL result to arrays
 % Creating structures
-ts_data = sqlRes{:,1}; % getting values
-ts_values = cellfun(@str2double, ts_data); % converting type of values to double
+sql_subjects = sqlRes{:,1}; % getting subject_ids
 
-ts_dates = sqlRes{:,2}; % getting dates
-
-% Creating timeseries object
-timeSeries = timeseries(ts_values, ts_dates, 'name', 'test');
-
-% Output timeSeries
-disp(timeSeries)
-plot(timeSeries)
+sql_data = sqlRes{:,2}; % getting values
+sql_values = cellfun(@str2double, sql_data); % converting type of values to double
