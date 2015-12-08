@@ -5,7 +5,7 @@ TM data - set of scripts for easy and user-friendly view of tranSMART data.
   - scripts folder contains R and MATLAB sample scripts.
 
 # Installing for Oracle
-From `sql/oracle/` run script **tm_data_oracle.sql** using SQL Developer of sqlplus with database user `system`.
+From `sql/oracle/` run script **tm_data_oracle.sql** using SQL Developer or sqlplus with database user `system`.
 
 This script creates new tablespace tm_data with following views:
   - tm_data.studies - list of all studies;
@@ -21,7 +21,7 @@ and indexes for following clinical values:
   - tm_data.IDX_CVALS_4 - Data value.
   
 # Installing for PostgreSQL
-From `sql/postgres/` run script **tm_data_postgres.sql** using pgAdmin of psql with user of tranSMART database.
+From `sql/postgres/` run script **tm_data_postgres.sql** using pgAdmin or psql with user of tranSMART database.
 
 This script creates new schema tm_data with following views:
   - tm_data.studies - list of all studies;
