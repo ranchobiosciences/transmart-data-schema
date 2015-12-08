@@ -56,7 +56,6 @@ WHERE
 );
 
 --4) List of clinical values
-
 CREATE OR REPLACE VIEW tm_data.studies_clinical_values AS
 SELECT 
 	cd.sourcesystem_cd AS study_id,
