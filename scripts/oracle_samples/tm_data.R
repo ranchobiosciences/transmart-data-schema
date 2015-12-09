@@ -7,12 +7,12 @@ default.db.connection.string <-"host:port/sid" # Enter correct database host, po
 
 # creating connection to oracle database
 get.connection <- function(db.connection.string=default.db.connection.string,
-									db.username=default.db.username,
-									db.password=default.db.password) {
+			db.username=default.db.username,
+			db.password=default.db.password) {
 	db.connection <- dbConnect(Oracle(),
-								username=db.username,
-								password=db.password,
-								dbname=db.connection.string)
+				username=db.username,
+				password=db.password,
+				dbname=db.connection.string)
 	
 	# return database connection object
 	db.connection
