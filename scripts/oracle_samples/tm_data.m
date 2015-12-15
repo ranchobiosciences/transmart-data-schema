@@ -23,6 +23,7 @@ curs = exec(conn, sqlQuery);
 curs = fetch(curs);
 sqlRes = cell2table(curs.Data);
 close(curs);
+close(conn);
 
 % Converting SQL result to arrays
 % Creating structures
