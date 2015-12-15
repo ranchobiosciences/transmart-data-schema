@@ -30,4 +30,4 @@ This script creates new schema tm_data with following views:
   - tm_data.studies_clinical_values - list of clinical values.
 
 # Samples
-R-script **tm_data.R** (PostgreSQL and Oracle) and MATLAB script **tm_data.m** (Oracle) demonstrates how to get data from our views.
+R-script **tm_data.R** and MATLAB script **tm_data.m** demonstrates how to get data from our views on PostgreSQL and Oracle.
