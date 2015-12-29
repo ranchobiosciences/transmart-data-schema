@@ -5,13 +5,17 @@ DROP ROLE IF EXISTS tm_data;
 --Creating user and schema
 CREATE ROLE tm_data LOGIN PASSWORD 'tm_data';
 CREATE SCHEMA AUTHORIZATION tm_data;
+--Granting access permissions
+GRANT ALL ON SCHEMA tm_data TO tm_data;
 
 --1) List of all studies
 CREATE OR REPLACE VIEW tm_data.studies AS
 SELECT 
-	DISTINCT(sourcesystem_cd) as study_id 
+	DISTINCT(sourcesystem_cd) AS study_id 
 FROM 
 	i2b2demodata.concept_dimension;
+--Granting access permissions
+GRANT SELECT ON tm_data.studies TO tm_data;
 
 --2) List of all patients
 CREATE OR REPLACE VIEW tm_data.studies_patients AS
@@ -30,6 +34,8 @@ SELECT
 	pd.update_date AS update_date
 FROM
 	i2b2demodata.patient_dimension pd;
+--Granting access permissions
+GRANT SELECT ON tm_data.studies_patients TO tm_data;
 
 --3) List of clinical attributes
 CREATE OR REPLACE VIEW tm_data.studies_clinical_attributes AS
@@ -54,6 +60,8 @@ WHERE
 		SELECT DISTINCT sm.concept_code FROM deapp.de_subject_sample_mapping sm
 	)
 );
+--Granting access permissions
+GRANT SELECT ON tm_data.studies_clinical_attributes TO tm_data;
 
 --4) List of clinical values
 CREATE OR REPLACE VIEW tm_data.studies_clinical_values AS
@@ -88,3 +96,5 @@ WHERE
 		SELECT DISTINCT sm.concept_code FROM deapp.de_subject_sample_mapping sm
 	)
 );
+--Granting access permissions
+GRANT SELECT ON tm_data.studies_clinical_values TO tm_data;
